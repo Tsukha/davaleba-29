@@ -1,0 +1,479 @@
+// Variables
+$primary-color: #667eea;
+$secondary-color: #764ba2;
+$success-color: #3498db;
+$error-color: #c33;
+$warning-color: #f39c12;
+$dark-color: #2c3e50;
+$light-color: #ecf0f1;
+$sidebar-color: #2c3e50;
+$sidebar-hover: #34495e;
+
+$border-radius: 0.5rem;
+$border-radius-large: 1rem;
+$transition: all 0.2s ease;
+$shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+$shadow-large: 0 10px 25px rgba(0, 0, 0, 0.1);
+
+$font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+// Mixins
+@mixin gradient-primary {
+  background: linear-gradient(135deg, $primary-color 0%, $secondary-color 100%);
+}
+
+@mixin gradient-light {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+@mixin gradient-success {
+  background: linear-gradient(135deg, $success-color, #2980b9);
+}
+
+@mixin button-hover {
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba($primary-color, 0.3);
+  }
+}
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// Reset and base styles
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $font-family;
+  line-height: 1.6;
+  color: #333;
+}
+
+// Layout styles
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: $font-family;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+// Header styles
+.header {
+  @include gradient-primary;
+  color: white;
+  padding: 1rem 0;
+  z-index: 10;
+
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  .nav {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .nav-link {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: $border-radius;
+    transition: $transition;
+    cursor: pointer;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-1px);
+    }
+  }
+
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .welcome {
+      font-weight: 500;
+    }
+  }
+}
+
+// Public layout styles
+.public-layout {
+  .main {
+    flex: 1;
+    padding: 2rem 0;
+    @include gradient-light;
+  }
+
+  .auth-page {
+    @include flex-center;
+    min-height: 60vh;
+  }
+
+  .auth-card {
+    background: white;
+    padding: 2rem;
+    border-radius: $border-radius-large;
+    box-shadow: $shadow-large;
+    width: 100%;
+    max-width: 400px;
+
+    h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #333;
+    }
+  }
+
+  .auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .auth-link {
+    text-align: center;
+    margin-top: 1rem;
+    color: #666;
+
+    button {
+      background: none;
+      border: none;
+      color: $primary-color;
+      text-decoration: underline;
+      cursor: pointer;
+      font-size: inherit;
+    }
+  }
+
+  .demo-credentials {
+    text-align: center;
+    margin-top: 1rem;
+    padding: 0.5rem;
+    background: #f8f9fa;
+    border-radius: $border-radius;
+    color: #666;
+  }
+}
+
+// Private layout styles
+.private-layout {
+  .app-body {
+    flex: 1;
+    display: flex;
+  }
+
+  .sidebar {
+    width: 250px;
+    background: $sidebar-color;
+    color: white;
+    padding: 2rem 0;
+
+    .nav-menu {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        margin: 0;
+      }
+
+      .nav-menu-link {
+        display: block;
+        padding: 1rem 1.5rem;
+        color: #bdc3c7;
+        text-decoration: none;
+        transition: $transition;
+        background: none;
+        border: none;
+        width: 100%;
+        text-align: left;
+        cursor: pointer;
+        font-size: 1rem;
+
+        &:hover,
+        &.active {
+          background: $sidebar-hover;
+          color: white;
+          transform: translateX(5px);
+        }
+      }
+    }
+  }
+
+  .main {
+    flex: 1;
+    padding: 2rem;
+    background: $light-color;
+    overflow-y: auto;
+  }
+}
+
+// Form styles
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  label {
+    font-weight: 500;
+    color: #555;
+  }
+}
+
+.form-input {
+  padding: 0.75rem;
+  border: 2px solid #e1e5e9;
+  border-radius: $border-radius;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+    box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+  }
+}
+
+// Button styles
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: $border-radius;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: $transition;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  &.btn-primary {
+    @include gradient-primary;
+    color: white;
+    @include button-hover;
+  }
+
+  &.btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+  }
+}
+
+// Error styles
+.error {
+  background: #fee;
+  color: $error-color;
+  padding: 0.75rem;
+  border-radius: $border-radius;
+  border: 1px solid #fcc;
+  text-align: center;
+}
+
+// Page styles
+.page {
+  background: white;
+  padding: 2rem;
+  border-radius: $border-radius-large;
+  box-shadow: $shadow;
+
+  h2 {
+    margin-top: 0;
+    color: $dark-color;
+    border-bottom: 2px solid $success-color;
+    padding-bottom: 0.5rem;
+  }
+}
+
+// Dashboard styles
+.dashboard-content {
+  margin-top: 2rem;
+}
+
+.welcome-card {
+  @include gradient-success;
+  color: white;
+  padding: 2rem;
+  border-radius: $border-radius-large;
+  margin-bottom: 2rem;
+
+  h3 {
+    margin: 0 0 0.5rem 0;
+  }
+
+  p {
+    margin: 0;
+    opacity: 0.9;
+  }
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.stat-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: $border-radius;
+  border-left: 4px solid $success-color;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+  h4 {
+    margin: 0 0 0.5rem 0;
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+  }
+
+  p {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: $dark-color;
+  }
+}
+
+// Profile styles
+.profile-content {
+  margin-top: 2rem;
+}
+
+.profile-card {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  border-radius: $border-radius-large;
+}
+
+.profile-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  @include gradient-primary;
+  @include flex-center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+}
+
+.profile-info {
+  h3 {
+    margin: 0 0 0.5rem 0;
+    color: $dark-color;
+  }
+
+  p {
+    margin: 0.25rem 0;
+    color: #7f8c8d;
+  }
+}
+
+// Settings styles
+.settings-content {
+  margin-top: 2rem;
+}
+
+.settings-section {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: $border-radius;
+  margin-bottom: 1.5rem;
+
+  h3 {
+    margin: 0 0 1rem 0;
+    color: $dark-color;
+  }
+}
+
+.setting-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid #dee2e6;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  label {
+    font-weight: 500;
+    color: #495057;
+  }
+
+  input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+
+  select {
+    padding: 0.5rem;
+    border: 1px solid #ced4da;
+    border-radius: $border-radius;
+    background: white;
+  }
+}
+
+// Loading styles
+.loading {
+  @include flex-center;
+  height: 100vh;
+  font-size: 1.2rem;
+  color: $primary-color;
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .private-layout {
+    .sidebar {
+      width: 200px;
+    }
+  }
+
+  .container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .profile-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
